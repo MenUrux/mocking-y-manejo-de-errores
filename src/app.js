@@ -3,6 +3,7 @@ import handlebars from 'express-handlebars';
 import path from 'path';
 import passport from 'passport';
 import sessionConfig from './config/session.config.js';
+import cors from 'cors';
 
 import { init as initPassport } from './config/passport.config olld.js';
 
@@ -21,6 +22,8 @@ import { errorHandlerMiddleware } from './middlewares/error-handler.middleware.j
 
 const app = express();
 
+const whiteList = process.env.ORIGINS_ALLOWED.split(',');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
@@ -34,6 +37,10 @@ initPassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(cors({
+    origin: whiteList,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+}));
 app.use('/', indexRouter);
 app.use('/api/mockingproducts', mockingRouter);
 app.use('/api/auth', authRouter);

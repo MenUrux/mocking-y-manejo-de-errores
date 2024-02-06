@@ -98,25 +98,6 @@ export default class UsersController {
         }
     }
 
-    // static async login(req, res) {
-    //     /*    const { email, password } = req.body;
-
-    //        try {
-    //            const user = await User.findOne({ email });
-
-    //            if (!user || user.password !== password) {
-    //                return res.status(401).json({ message: 'Correo o contraseña inválidos.' });
-    //            }
-
-    //            const token = generateToken(user);
-    //            res.cookie('token', token, {
-    //                maxAge: 1000 * 60 * 60, // 1 hora
-    //                httpOnly: true,
-    //            }).status(200).json({ status: 'success', token });
-    //        } catch (error) {
-    //            res.status(500).json({ message: 'Error interno del servidor.' });
-    //        } */
-    // }
 
     static async getCurrentUser(req, res) {
         /*  const { token } = req.cookies;
@@ -140,13 +121,11 @@ export default class UsersController {
     }
 
     static async logout(req, res) {
-        // Si estás usando sesiones:
         req.session.destroy((err) => {
             if (err) return res.status(500).send('Error al cerrar sesión.');
             res.send('Sesión cerrada con éxito.');
         });
 
-        // Si estás usando JWT, no hay necesidad de manejarlo aquí
     }
 
 }
